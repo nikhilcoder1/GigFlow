@@ -14,6 +14,16 @@ app.use(cors({
   credentials: true
 }));
 
+// Routes
+import authRoutes from "./routes/authRoutes.js";
+import gigRoutes from "./routes/gigRoutes.js";
+import bidRoutes from "./routes/bidRoutes.js";
+
+app.use("/api/auth", authRoutes);
+app.use("/api/gigs", gigRoutes);
+app.use("/api/bids", bidRoutes);
+
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.error(err));
