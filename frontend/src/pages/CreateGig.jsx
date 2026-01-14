@@ -17,12 +17,13 @@ const CreateGig = () => {
       await api.post("/api/gigs", form);
       navigate("/");
     } catch (err) {
-      if (err.response?.status === 401) {
-        alert("Please login to post a gig");
-      } else {
-        alert("Failed to create gig");
-      }
-    }
+  if (err.response?.status === 401) {
+    alert("Session not ready. Please refresh once and try again.");
+  } else {
+    alert("Failed to create gig");
+  }
+}
+
   };
 
 
