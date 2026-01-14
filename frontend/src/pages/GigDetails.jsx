@@ -14,7 +14,8 @@ const GigDetails = () => {
     price: ""
   });
 
-  const isOwner = user && gig && user._id === gig.ownerId;
+  const isOwner = user && gig && user._id === gig.ownerId._id;
+
 
   // Fetch gig details
   const fetchGig = async () => {
@@ -40,14 +41,25 @@ const GigDetails = () => {
 
   const submitBid = async (e) => {
     e.preventDefault();
-    await api.post("/api/bids", {
-      gigId: id,
-      message: bidForm.message,
-      price: bidForm.price
-    });
-    alert("Bid submitted");
-    setBidForm({ message: "", price: "" });
+    try {
+      await api.post("/api/bids", {
+        gigId: id,
+        message: bidForm.message,
+        price: bidForm.price
+      });
+      alert("Bid submitted");
+      setBidForm({ message: "", price: "" });
+    } catch (err) {
+      if (err.response?.status === 401) {
+        alert("Please login to place a bid");
+      } else if (err.response?.status === 403) {
+        alert("You cannot bid on your own gig");
+      } else {
+        alert("Something went wrong");
+      }
+    }
   };
+
 
   if (!gig) return <div className="p-6">Loading...</div>;
 
@@ -73,7 +85,7 @@ const GigDetails = () => {
       </div>
 
       {/* Bid Form (Non-owner + Open gig) */}
-      {user && !isOwner && gig.status === "open" && (
+      {gig.status === "open" && !isOwner && (
         <form onSubmit={submitBid} className="border p-4 space-y-3">
           <h2 className="text-xl">Place a Bid</h2>
 
