@@ -23,7 +23,6 @@ const Login = () => {
     alert("Invalid credentials");
   }
 };
-git
 
   return (
     <div className="flex justify-center items-center h-screen">
