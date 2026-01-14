@@ -13,12 +13,13 @@ export const createGig = async (req, res) => {
       title,
       description,
       budget,
-      ownerId: req.user._id,
+      ownerId: req.user.id, 
       status: "open",
     });
 
     res.status(201).json(gig);
   } catch (error) {
+    console.error("Create Gig Error:", error);
     res.status(500).json({ message: "Failed to create gig" });
   }
 };
@@ -39,6 +40,7 @@ export const getGigs = async (req, res) => {
 
     res.json(gigs);
   } catch (error) {
+    console.error("Fetch Gigs Error:", error);
     res.status(500).json({ message: "Failed to fetch gigs" });
   }
 };
@@ -55,6 +57,7 @@ export const getGigById = async (req, res) => {
 
     res.json(gig);
   } catch (error) {
+    console.error("Fetch Gig Error:", error);
     res.status(500).json({ message: "Failed to fetch gig" });
   }
 };
