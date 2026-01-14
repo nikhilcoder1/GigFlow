@@ -16,15 +16,30 @@ const Gigs = () => {
   }, []);
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1>Available Gigs</h1>
-      <input placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={fetchGigs} />
-      {gigs.map(g => (
-        <Link key={g._id} to={`/gigs/${g._id}`} style={{ display: "block", border: "1px solid #ccc", marginTop: 12, padding: 12 }}>
-          <h3>{g.title}</h3>
-          <p>{g.description}</p>
-        </Link>
-      ))}
+    <div className="p-6 max-w-4xl mx-auto">
+      <h1 className="text-2xl mb-4">Available Gigs</h1>
+
+      <input
+        className="border p-2 w-full mb-6"
+        placeholder="Search by title..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        onKeyUp={fetchGigs}
+      />
+
+      <div className="space-y-4">
+        {gigs.map((gig) => (
+          <Link
+            to={`/gigs/${gig._id}`}
+            key={gig._id}
+            className="block border p-4 hover:bg-gray-50"
+          >
+            <h2 className="text-lg font-semibold">{gig.title}</h2>
+            <p className="text-gray-600">{gig.description}</p>
+            <p className="font-medium">₹ {gig.budget}</p>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

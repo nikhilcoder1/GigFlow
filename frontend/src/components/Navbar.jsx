@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
+
   const [loggedIn, setLoggedIn] = useState(
     localStorage.getItem("loggedIn") === "true"
   );
@@ -12,19 +13,30 @@ const Navbar = () => {
     try {
       await api.post("/api/auth/logout");
     } catch {}
+
     localStorage.removeItem("loggedIn");
     setLoggedIn(false);
     navigate("/login");
   };
 
   return (
-    <nav style={{ display: "flex", justifyContent: "space-between", padding: 16, borderBottom: "1px solid #ccc" }}>
-      <Link to="/">GigFlow</Link>
-      <div style={{ display: "flex", gap: 12 }}>
+    <nav className="flex justify-between items-center px-6 py-4 border-b">
+      <Link to="/" className="text-xl font-bold">
+        GigFlow
+      </Link>
+
+      <div className="flex gap-4">
         {loggedIn ? (
           <>
-            <Link to="/create-gig">Post Gig</Link>
-            <button onClick={logout}>Logout</button>
+            <Link to="/create-gig" className="border px-3 py-1">
+              Post Gig
+            </Link>
+            <button
+              onClick={logout}
+              className="bg-black text-white px-3 py-1"
+            >
+              Logout
+            </button>
           </>
         ) : (
           <>
