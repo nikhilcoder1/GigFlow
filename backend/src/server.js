@@ -6,15 +6,18 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
+
 app.set("trust proxy", 1);
 
-
-app.use(express.json());
-app.use(cookieParser());
 app.use(cors({
   origin: "https://gig-flow-snowy.vercel.app",
   credentials: true
 }));
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Routes
 import authRoutes from "./routes/authRoutes.js";
@@ -26,7 +29,8 @@ app.use("/api/gigs", gigRoutes);
 app.use("/api/bids", bidRoutes);
 
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.error(err));
 
