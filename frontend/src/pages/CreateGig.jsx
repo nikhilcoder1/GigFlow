@@ -16,10 +16,15 @@ const CreateGig = () => {
     try {
       await api.post("/api/gigs", form);
       navigate("/");
-    } catch {
-      alert("Failed to create gig");
+    } catch (err) {
+      if (err.response?.status === 401) {
+        alert("Please login to post a gig");
+      } else {
+        alert("Failed to create gig");
+      }
     }
   };
+
 
   return (
     <div className="max-w-xl mx-auto p-6">
