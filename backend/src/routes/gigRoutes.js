@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Browse gigs (public or logged-in)
 router.get("/", getGigs);
-
+router.get("/:id", getGigById);
 // Create gig (logged-in only)
 router.post("/", protect, createGig);
 

@@ -95,3 +95,19 @@ export const logout = async (req, res) => {
 
   res.json({ message: "Logged out successfully" });
 };
+
+// ================= GET SINGLE GIG =================
+export const getGigById = async (req, res) => {
+  try {
+    const gig = await Gig.findById(req.params.id)
+      .populate("ownerId", "name email");
+
+    if (!gig) {
+      return res.status(404).json({ message: "Gig not found" });
+    }
+
+    res.json(gig);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch gig" });
+  }
+};
