@@ -10,14 +10,20 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await api.post("/api/auth/login", { email, password });
-      window.location.href="/";
-    } catch {
-      alert("Invalid credentials");
-    }
-  };
+  e.preventDefault();
+  try {
+    await api.post("/api/auth/login", { email, password });
+
+    console.log("LOGIN SUCCESS – SETTING localStorage");
+
+    localStorage.setItem("loggedIn", "true");
+
+    window.location.href = "/";
+  } catch {
+    alert("Invalid credentials");
+  }
+};
+git
 
   return (
     <div className="flex justify-center items-center h-screen">
