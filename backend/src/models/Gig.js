@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const gigSchema = new mongoose.Schema({
   title: String,
   description: String,
