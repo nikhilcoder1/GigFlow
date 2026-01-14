@@ -1,11 +1,4 @@
-import express from "express";
-import { protect } from "../middlewares/authMiddlewares.js";
 import Gig from "../models/Gig.js";
-import {
-  createGig,
-  getGigs,
-  getGigById
-} from "../controllers/gigController.js";
 
 // ================= CREATE GIG =================
 export const createGig = async (req, res) => {
@@ -30,13 +23,12 @@ export const createGig = async (req, res) => {
   }
 };
 
-// ================= GET OPEN GIGS + SEARCH =================
+// ================= GET ALL GIGS =================
 export const getGigs = async (req, res) => {
   try {
     const { search } = req.query;
 
     let query = { status: "open" };
-
     if (search) {
       query.title = { $regex: search, $options: "i" };
     }
@@ -54,7 +46,7 @@ export const getGigs = async (req, res) => {
 // ================= GET SINGLE GIG =================
 export const getGigById = async (req, res) => {
   try {
-    const gig = await gig.findById(req.params.id)
+    const gig = await Gig.findById(req.params.id)
       .populate("ownerId", "name email");
 
     if (!gig) {
