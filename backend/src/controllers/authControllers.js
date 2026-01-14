@@ -99,7 +99,7 @@ export const logout = async (req, res) => {
 // ================= GET SINGLE GIG =================
 export const getGigById = async (req, res) => {
   try {
-    const gig = await Gig.findById(req.params.id)
+    const gig = await gig.findById(req.params.id)
       .populate("ownerId", "name email");
 
     if (!gig) {
