@@ -1,49 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import api from "../services/api";
-import { useState } from "react";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-
-  const [loggedIn, setLoggedIn] = useState(
-    localStorage.getItem("loggedIn") === "true"
-  );
-
   const logout = async () => {
-    try {
-      await api.post("/api/auth/logout");
-    } catch {}
-
-    localStorage.removeItem("loggedIn");
-    setLoggedIn(false);
-    navigate("/login");
+    try { await api.post("/api/auth/logout"); } catch {}
+    window.location.href = "/login";
   };
 
   return (
-    <nav className="flex justify-between items-center px-6 py-4 border-b">
-      <Link to="/" className="text-xl font-bold">
-        GigFlow
-      </Link>
-
-      <div className="flex gap-4">
-        {loggedIn ? (
-          <>
-            <Link to="/create-gig" className="border px-3 py-1">
-              Post Gig
-            </Link>
-            <button
-              onClick={logout}
-              className="bg-black text-white px-3 py-1"
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-          </>
-        )}
+    <nav style={{display:"flex",justifyContent:"space-between",padding:16,borderBottom:"1px solid #ddd"}}>
+      <Link to="/">GigFlow</Link>
+      <div style={{display:"flex",gap:12}}>
+        <Link to="/create-gig">Post Gig</Link>
+        <button onClick={logout}>Logout</button>
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
       </div>
     </nav>
   );
