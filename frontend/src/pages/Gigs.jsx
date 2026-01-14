@@ -7,7 +7,7 @@ const Gigs = () => {
   const [search, setSearch] = useState("");
 
   const fetchGigs = async () => {
-    const res = await api.get(`/gigs?search=${search}`);
+    const res = await api.get(`/api/gigs?search=${search}`);
     setGigs(res.data);
   };
 

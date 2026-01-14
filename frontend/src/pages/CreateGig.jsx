@@ -14,7 +14,7 @@ const CreateGig = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/gigs", form);
+      await api.post("/api/gigs", form);
       navigate("/");
     } catch {
       alert("Failed to create gig");

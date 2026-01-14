@@ -18,14 +18,14 @@ const GigDetails = () => {
 
   // Fetch gig details
   const fetchGig = async () => {
-    const res = await api.get(`/gigs/${id}`);
+    const res = await api.get(`/api/gigs/${id}`);
     setGig(res.data);
   };
 
   // Fetch bids (ONLY owner)
   const fetchBids = async () => {
     if (isOwner) {
-      const res = await api.get(`/bids/${id}`);
+      const res = await api.get(`/api/bids/${id}`);
       setBids(res.data);
     }
   };
@@ -40,7 +40,7 @@ const GigDetails = () => {
 
   const submitBid = async (e) => {
     e.preventDefault();
-    await api.post("/bids", {
+    await api.post("/api/bids", {
       gigId: id,
       message: bidForm.message,
       price: bidForm.price
@@ -53,7 +53,7 @@ const GigDetails = () => {
 
   const hireBid = async (bidId) => {
     try {
-        await api.patch(`/bids/${bidId}/hire`);
+        await api.patch(`/api/bids/${bidId}/hire`);
         await fetchGig();   // refresh gig status
         await fetchBids();  // refresh bids
     } catch {
