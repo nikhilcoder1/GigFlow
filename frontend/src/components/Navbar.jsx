@@ -7,7 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const logout = async () => {
-    await api.post("/auth/logout"); // backend will clear cookie
+    await api.post("/api/auth/logout"); // backend will clear cookie
     setUser(null);
     navigate("/login");
   };
