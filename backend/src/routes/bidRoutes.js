@@ -1,7 +1,7 @@
 import express from "express";
-import { createBid, getBidsForGig } from "../controllers/bidController.js";
-import { protect } from "../middleware/authMiddleware.js";
-import { hireBid } from "../controllers/hiringController.js";
+import { createBid, getBidsForGig } from "../controllers/bidControllers.js";
+import { protect } from "../middlewares/authMiddlewares.js";
+import { hireBid } from "../controllers/hiringControllers.js";
 
 const router = express.Router();
 
