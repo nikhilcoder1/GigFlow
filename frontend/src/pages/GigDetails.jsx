@@ -150,13 +150,13 @@ const GigDetails = () => {
 
                     {bid.status === "hired" && (
                     <span className="text-green-600 font-semibold">
-                        ✅ Hired
+                        Hired
                     </span>
                     )}
 
                     {bid.status === "rejected" && (
                     <span className="text-red-500">
-                        ❌ Rejected
+                        Rejected
                     </span>
                     )}
                 </div>

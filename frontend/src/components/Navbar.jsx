@@ -1,15 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import api from "../services/api";
+import api from "../services/api.js";
 
 const Navbar = () => {
-  const { user, setUser } = useAuth();
   const navigate = useNavigate();
 
   const logout = async () => {
-    await api.post("/api/auth/logout"); // backend will clear cookie
-    setUser(null);
-    navigate("/login");
+    try {
+      await api.post("/api/auth/logout");
+    } catch {}
+    window.location.href = "/login";
   };
 
   return (
@@ -19,21 +18,19 @@ const Navbar = () => {
       </Link>
 
       <div className="flex gap-4">
-        {user ? (
-          <>
-            <Link to="/create-gig" className="border px-3 py-1">
-              Post Gig
-            </Link>
-            <button onClick={logout} className="bg-black text-white px-3 py-1">
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-          </>
-        )}
+        <Link to="/create-gig" className="border px-3 py-1">
+          Post Gig
+        </Link>
+
+        <button
+          onClick={logout}
+          className="bg-black text-white px-3 py-1"
+        >
+          Logout
+        </button>
+
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
       </div>
     </nav>
   );
