@@ -1,16 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import api from "../services/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = useState(false);
 
-  // Read login flag on load
-  useEffect(() => {
-    const flag = localStorage.getItem("loggedIn");
-    setLoggedIn(flag === "true");
-  }, []);
+  const [loggedIn, setLoggedIn] = useState(
+    localStorage.getItem("loggedIn") === "true"
+  );
 
   const logout = async () => {
     try {
@@ -34,7 +31,6 @@ const Navbar = () => {
             <Link to="/create-gig" className="border px-3 py-1">
               Post Gig
             </Link>
-
             <button
               onClick={logout}
               className="bg-black text-white px-3 py-1"
