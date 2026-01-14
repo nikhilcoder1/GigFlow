@@ -12,17 +12,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    await api.post("/api/auth/login", { email, password });
+    const res = await api.post("/api/auth/login", { email, password });
 
-    console.log("LOGIN SUCCESS – SETTING localStorage");
-
-    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("token", res.data.token);
 
     window.location.href = "/";
   } catch {
     alert("Invalid credentials");
   }
 };
+
 
   return (
     <div className="flex justify-center items-center h-screen">
