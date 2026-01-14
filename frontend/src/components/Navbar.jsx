@@ -1,14 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
-import api from "../services/api.js";
+import api from "../services/api";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  // Read login flag on load
+  useEffect(() => {
+    const flag = localStorage.getItem("loggedIn");
+    setLoggedIn(flag === "true");
+  }, []);
 
   const logout = async () => {
     try {
       await api.post("/api/auth/logout");
     } catch {}
-    window.location.href = "/login";
+
+    localStorage.removeItem("loggedIn");
+    setLoggedIn(false);
+    navigate("/login");
   };
 
   return (
@@ -18,19 +29,25 @@ const Navbar = () => {
       </Link>
 
       <div className="flex gap-4">
-        <Link to="/create-gig" className="border px-3 py-1">
-          Post Gig
-        </Link>
+        {loggedIn ? (
+          <>
+            <Link to="/create-gig" className="border px-3 py-1">
+              Post Gig
+            </Link>
 
-        <button
-          onClick={logout}
-          className="bg-black text-white px-3 py-1"
-        >
-          Logout
-        </button>
-
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
+            <button
+              onClick={logout}
+              className="bg-black text-white px-3 py-1"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        )}
       </div>
     </nav>
   );
