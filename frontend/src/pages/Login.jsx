@@ -12,9 +12,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/api/auth/login", { email, password });
-      setUser(res.data);
-      navigate("/");
+      await api.post("/api/auth/login", { email, password });
+      window.location.href="/";
     } catch {
       alert("Invalid credentials");
     }
