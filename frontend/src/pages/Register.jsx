@@ -8,7 +8,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await api.post("/auth/register", form);
+    await api.post("/api/auth/register", form);
     navigate("/login");
   };
 
